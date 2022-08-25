@@ -1,0 +1,17 @@
+{
+  "name": "orders-manager",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "java-tomcat",
+  "customizations": {
+    "vscode": {
+      "extensions": ["vscjava.vscode-java-pack"],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "java.configuration.updateBuildConfiguration": "interactive"
+      }
+    }
+  },
+  "postStartCommand": "bash config.sh",
+  "workspaceFolder": "/orders-manager",
+  "remoteUser": "jhordyess"
+}
