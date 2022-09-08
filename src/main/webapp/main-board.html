@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+  <title>Orders manager</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="./img/logo.png" />
+  <!--Estilo de default-->
+  <link rel="stylesheet" href="./default.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.css"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  <body class="w3-light-grey" onload="parent.resizeIframe('myiframe');">
+    <div class="w3-row w3-margin-bottom">
+      <div class="w3-quarter">
+        <div class="w3-container w3-red w3-padding-16">
+          <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+          <div class="w3-right">
+            <h3>52</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <h4>Messages</h4>
+        </div>
+      </div>
+      <div class="w3-quarter">
+        <div class="w3-container w3-blue w3-padding-16">
+          <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
+          <div class="w3-right">
+            <h3>99</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <h4>Views</h4>
+        </div>
+      </div>
+      <div class="w3-quarter">
+        <div class="w3-container w3-teal w3-padding-16">
+          <div class="w3-left">
+            <i class="fa fa-share-alt w3-xxxlarge"></i>
+          </div>
+          <div class="w3-right">
+            <h3>23</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <h4>Shares</h4>
+        </div>
+      </div>
+      <div class="w3-quarter">
+        <div class="w3-container w3-orange w3-text-white w3-padding-16">
+          <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+          <div class="w3-right">
+            <h3>50</h3>
+          </div>
+          <div class="w3-clear"></div>
+          <h4>Users</h4>
+        </div>
+      </div>
+    </div>
+    <div class="w3-panel">
+      <h5>Delivery</h5>
+      <input
+        title="Copie las coordenadas aqui"
+        class="w3-input w3-border"
+        style="width: 15%; display: inline-block"
+        placeholder="Ejemplo:51.505,-0.09"
+        onclick="this.setSelectionRange(0, this.value.length)"
+        type="text"
+        value=""
+        id="p-delivery"
+      />
+      <button class="w3-button w3-teal" onclick="searchMap(this.parentElement)">
+        Ir
+      </button>
+      <button
+        class="w3-button w3-teal"
+        onclick="searchMapC(this.parentElement)"
+      >
+        Copiar e Ir
+      </button>
+      <button class="w3-button w3-teal" onclick="homeMap(this.parentElement)">
+        Home</button
+      ><br />
+      <div class="w3-row-padding w3-section">
+        <div
+          id="mapid"
+          class="w3-twothird w3-border"
+          style="height: 350px"
+        ></div>
+        <div class="w3-third">
+          <table class="w3-table w3-striped w3-white">
+            <tr>
+              <td><i class="fas fa-circle w3-text-teal w3-large"></i></td>
+              <td>Hasta 1.45 kilómetros</td>
+              <td><i>_ pedidos</i></td>
+            </tr>
+            <tr>
+              <td><i class="fas fa-circle w3-text-green w3-large"></i></td>
+              <td>Hasta 3.45 kilómetros</td>
+              <td><i>_ pedidos</i></td>
+            </tr>
+            <tr>
+              <td><i class="fas fa-circle w3-text-orange w3-large"></i></td>
+              <td>Hasta 5.2 kilómetros</td>
+              <td><i>_ pedidos</i></td>
+            </tr>
+            <tr>
+              <td><i class="fas fa-circle w3-text-blue w3-large"></i></td>
+              <td>Hasta 7.15 kilómetros</td>
+              <td><i>_ pedidos</i></td>
+            </tr>
+            <tr>
+              <td><i class="fas fa-circle w3-text-red w3-large"></i></td>
+              <td>Hasta 12.6 kilómetros</td>
+              <td><i>_ pedidos</i></td>
+            </tr>
+            <tr>
+              <td><i class="fas fa-circle w3-text-black w3-large"></i></td>
+              <td>Mayor a 12.6 kilómetros.</td>
+              <td><i>_ pedidos</i></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="w3-container">
+      <!--<i class="fas fa-chart-area"></i>-->
+      <h5>
+        Ingresos totales vs
+        <button style="border: 0px" onclick="perseve(this)">mes</button>
+      </h5>
+      <p>
+        <canvas
+          id="grafic"
+          style="width: 100% !important; height: 350px !important"
+        ></canvas>
+      </p>
+      <span class="w3-opacity w3-medium">
+        <b> Nota: </b>Se calcula con fechas de sus pedidos enviados.
+      </span>
+    </div>
+    <hr />
+    <div class="w3-container w3-dark-grey w3-padding-32">
+      <div class="w3-row">
+        <div class="w3-container w3-third">
+          <h5 class="w3-bottombar w3-border-green">Demographic</h5>
+          <p>Language</p>
+          <p>Country</p>
+          <p>City</p>
+        </div>
+        <div class="w3-container w3-third">
+          <h5 class="w3-bottombar w3-border-red">System</h5>
+          <p>Browser</p>
+          <p>OS</p>
+          <p>More</p>
+        </div>
+        <div class="w3-container w3-third">
+          <h5 class="w3-bottombar w3-border-orange">Target</h5>
+          <p>Users</p>
+          <p>Active</p>
+          <p>Geo</p>
+          <p>Interests</p>
+        </div>
+      </div>
+    </div>
+    <script>
+      linea("0");
+      let chapi;
+      function perseve(e) {
+        chapi.destroy();
+        if (e.innerHTML === "mes") {
+          linea("1");
+          e.innerHTML = "numero de semana";
+        } else {
+          linea("0");
+          e.innerHTML = "mes";
+        }
+      }
+      function linea(tipo) {
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+          if (this.readyState === 4 && this.status === 200) {
+            try {
+              let data = JSON.parse(this.responseText);
+              let xi = [],
+                fi = [],
+                fi2 = [];
+              for (let ont of data) {
+                fi.push(ont.tot);
+                fi2.push(ont.con);
+                let str = ont.inf;
+                let dat = Number(str.substring(0, str.indexOf(",")));
+                let year = str.substring(str.indexOf(",") + 1);
+                if (tipo === "1") {
+                  //mismo que php
+                  xi.push("Sem " + (dat + 1) + " " + year);
+                } else if (tipo === "0") {
+                  let dias = [
+                    "Enero",
+                    "Febrero",
+                    "Marzo",
+                    "Abril",
+                    "Mayo",
+                    "Junio",
+                    "Julio",
+                    "Agosto",
+                    "Septiembre",
+                    "Octubre",
+                    "Noviembre",
+                    "Diciembre",
+                  ];
+                  xi.push(dias[dat - 1] + " " + year);
+                }
+              }
+
+              chapi = new Chart(document.getElementById("grafic"), {
+                type: "line",
+                data: {
+                  labels: xi,
+                  datasets: [
+                    daton("Ingresos sin saldo", 51, 204, 51, fi, false),
+                    daton("Ingresos con saldo", 255, 26, 26, fi2, true),
+                  ],
+                },
+                options: {
+                  maintainAspectRatio: false,
+                  legend: {
+                    display: true,
+                  },
+                  scales: {
+                    xAxes: [
+                      {
+                        gridLines: {
+                          display: false,
+                        },
+                      },
+                    ],
+                    yAxes: [
+                      {
+                        gridLines: {
+                          color: "rgba(0, 0, 0, .125)",
+                        },
+                      },
+                    ],
+                  },
+                },
+              });
+            } catch (e) {
+              alert("No puede graficarse");
+              console.log(e);
+            }
+          }
+        };
+        xhttp.open("POST", "/Analisis" + "?who=ingreso&is=" + tipo, true);
+        xhttp.send();
+      }
+      function daton(label, red, green, blue, dd, sw) {
+        return {
+          label: label,
+          lineTension: 0.3,
+          backgroundColor: "rgba(" + red + "," + green + "," + blue + ",0.2)",
+          borderColor: "rgba(" + red + "," + green + "," + blue + ",1)",
+          //
+          pointRadius: 5,
+          pointBackgroundColor:
+            "rgba(" + red + "," + green + "," + blue + ",1)",
+          pointBorderColor: "rgba(255,255,255,0.8)",
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor:
+            "rgba(" + red + "," + green + "," + blue + ",1)",
+          pointHitRadius: 50,
+          hidden: sw,
+          pointBorderWidth: 2,
+          data: dd,
+        };
+      }
+    </script>
+    <script>
+      async function searchMapC(e) {
+        let d = e.getElementsByTagName("input")[0];
+        let text = await navigator.clipboard.readText();
+        d.value = text;
+        try {
+          d = text.replace(" ", "");
+          let str = d.split(",");
+          let xx = parseFloat(str[0]);
+          let yy = parseFloat(str[1]);
+          marker.setLatLng([xx, yy]);
+          mymap.setView([xx, yy], 17);
+          //map.panTo(position);
+        } catch (error) {
+          alert("No se puede buscar");
+          //d.value = '';
+        }
+      }
+      function searchMap(e) {
+        try {
+          let d = e.getElementsByTagName("input")[0].value;
+          d = d.replace(" ", "");
+          let str = d.split(",");
+          let xx = parseFloat(str[0]);
+          let yy = parseFloat(str[1]);
+          marker.setLatLng([xx, yy]);
+          mymap.setView([xx, yy], 17);
+          //map.panTo(position);
+        } catch (error) {
+          alert("No se puede buscar");
+        }
+      }
+      function homeMap(e) {
+        try {
+          let d = e.getElementsByTagName("input")[0];
+          marker.setLatLng([x, y]);
+          mymap.setView([x, y], 11);
+          //
+          d.value = "";
+        } catch (error) {
+          alert("No se puede buscar");
+        }
+      }
+      let x = 51.505;
+      let y = -0.09;
+      let mymap = L.map("mapid").setView([x, y], 11);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+      }).addTo(mymap);
+      L.control.scale().addTo(mymap);
+      L.circle([x, y], {
+        color: "teal",
+        fillOpacity: 0,
+        radius: 1450,
+      }).addTo(mymap);
+      L.circle([x, y], {
+        color: "green",
+        fillOpacity: 0,
+        radius: 3450,
+      }).addTo(mymap);
+      L.circle([x, y], {
+        color: "orange",
+        fillOpacity: 0,
+        radius: 5200,
+      }).addTo(mymap);
+      L.circle([x, y], {
+        color: "blue",
+        fillOpacity: 0,
+        fillRule: "nonzero",
+        radius: 7150,
+      }).addTo(mymap);
+      L.circle([x, y], {
+        color: "red",
+        fillOpacity: 0,
+        radius: 12600,
+      }).addTo(mymap);
+      let marker = new L.marker([x, y], {
+        draggable: "true",
+      }).addTo(mymap);
+      marker.on("dragend", function (event) {
+        let position = marker.getLatLng();
+        mymap.setView(position, 17);
+        document.getElementById("p-delivery").value =
+          position.lat.toFixed(6) + "," + position.lng.toFixed(6);
+      });
+      function aftermap() {
+        if (
+          document.getElementById("Delivery").getElementsByTagName("INPUT")[0]
+            .value !== ""
+        )
+          searchMap(document.getElementById("Delivery"));
+      }
+      //mymap.addLayer(marker);
+    </script>
+  </body>
+</html>

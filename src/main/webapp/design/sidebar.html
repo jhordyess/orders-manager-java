@@ -1,0 +1,56 @@
+<nav
+  class="w3-sidebar w3-collapse w3-white w3-animate-left scc_menu"
+  style="z-index: 3; width: 300px"
+  id="myMenu"
+>
+  <div id="Vmenu">
+    <br />
+    <div class="w3-container w3-row">
+      <div class="w3-col s3">
+        <img
+          src="https://www.w3schools.com/w3images/avatar2.png"
+          class="w3-circle w3-margin-right"
+          style="width: 100%"
+          alt="No photo"
+          title="Este es usted"
+        />
+      </div>
+      <div class="w3-col s1">&nbsp;</div>
+      <div class="w3-col s8 w3-bar w3-row">
+        <center>Bienvenido, <strong>{{usr.name}}</strong></center>
+        <a href="#" class="w3-col s6 w3-bar-item w3-button" title="Usuario">
+          <i class="fa fa-user"></i>
+        </a>
+        <a href="#" class="w3-col s6 w3-bar-item w3-button" title="Configurar">
+          <i class="fa fa-cog"></i>
+        </a>
+      </div>
+    </div>
+    <hr />
+    <div class="w3-bar-block">
+      <!--Items for the menu -->
+      <a
+        v-for="menu in menus"
+        v-bind:target="[menu.isExt ? '_blank' : menu.isMod?'':'myiframe' ]"
+        v-bind:href="[menu.isMod ? 'javascript:void(0)' : menu.link]"
+        class="w3-bar-item w3-button w3-padding-16 w3-hover-pale-blue jh-link"
+        v-bind:class="[menu.isAct ? 'w3-leftbar w3-border-cyan w3-light-gray' : '' ,menu.ccs, menu.isSep ? 'w3-border-top w3-border-cyan' : '',menu.isMod ? 'w3-ripple':'']"
+        v-bind:title="'Ir a: '+menu.txt"
+      >
+        <i class="fa fa-fw" v-bind:class="menu.ico"></i>&nbsp;&nbsp;&nbsp;<span
+          >{{menu.txt}}</span
+        >
+      </a>
+      <br /><br />
+    </div>
+  </div>
+</nav>
+
+<!-- Efecto modal al abrir el menu en pantallas pequeñas -->
+<div
+  class="w3-overlay w3-hide-large w3-animate-opacity"
+  onclick="w3_close()"
+  style="cursor: pointer"
+  title="cerrar menu lateral"
+  id="myMBtn"
+></div>

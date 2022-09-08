@@ -1,0 +1,23 @@
+services:
+  mariadb:
+    image: mariadb:10.4
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD
+      - MARIADB_DATABASE
+    volumes:
+      - ./backup.sql:/docker-entrypoint-initdb.d/backup.sql
+  tomcat:
+    depends_on:
+      - mariadb
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD
+      - MARIADB_DATABASE
+      - PMA_HOST=mariadb
+      - DB_USER=root
+    ports:
+      - "8080:8080"

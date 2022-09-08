@@ -1,0 +1,4 @@
+Son los plugins complemento para usar conjuntamente datatable.
+-NOTA.- la forma de usar es con Vue, pero el html correspondiente esta ya implementado, se trabajarán en tutoriales para demostrar su funcionamiento. SIn embargo parte de su implementacion esta en el archivo crud read_delete.html
+v0.2
+Versiones anteriores son solo ya de prueba

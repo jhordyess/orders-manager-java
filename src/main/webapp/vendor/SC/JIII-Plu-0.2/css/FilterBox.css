@@ -1,0 +1,21 @@
+/*Opciones para los inputs, en el pie de pagina*/
+table tfoot tr th input.jh-inp {
+  width: 100%;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  border: 1px dashed #ccc;
+}
+table tfoot tr th button.jh-btn {
+  border: 0;
+  cursor: pointer;
+  outline: none;
+  color: #ccc;
+  background-color: rgba(255, 255, 255, 0);
+  font-size: 14pt;
+  position: absolute;
+  padding: 0;
+  margin: 0 0 0 -20px;
+}
+table tfoot tr th button.jh-btn:hover {
+  color: #008ac5;
+}

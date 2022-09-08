@@ -1,0 +1,24 @@
+<div class="w3-bar w3-top w3-large scc_topco" style="display: flex;justify-content: center;align-items: center;flex-direction: row">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hoverable w3-hover-text-black w3-hover-cyan" onclick="w3_open();" title="Abrir/cerrar menu" style="position:absolute;left: 8px">
+    <i class="fa fa-bars"></i>
+  </button>
+  <b class="w3-bar-item" id="relo"></b>
+  <div style="position: absolute;right: 8px;padding: 0;margin: 0">
+    <span class="w3-bar-item" style="padding-right: 4px;padding-left: 0">
+    <strong class="w3-bar-item" style="padding-left: 0;padding-right: 0">Orders manager</strong>
+  </div>
+</div>
+<script>
+  function startTime() {
+    let today = new Date();
+    document.getElementById('relo').innerHTML = today.getHours() + ":" + checkTime(today.getMinutes()) + ":" + checkTime(today.getSeconds());
+    setTimeout(startTime, 500);
+  }
+  function checkTime(i) {
+    if (i < 10) {
+      return "0" + i;
+    } else {
+      return i;
+    }
+  }
+</script>

@@ -1,0 +1,35 @@
+/*.jh-rowI clase del la nueva fila que se genera*/
+table#DTelems tbody tr.jh-rowI td.jh-rowI {
+  padding: 0px;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+table#DTelems tbody tr td.jh-dtlC::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700;
+  content: "\f105";
+}
+table#DTelems tbody tr td.jh-dtlO::before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700;
+  content: "\f107";
+}
+/**/
+dl {
+  padding: 0.5em;
+}
+dt {
+  float: left;
+  clear: left;
+  width: 100px;
+  text-align: right;
+  font-weight: bold;
+}
+dt::after {
+  content: ":";
+}
+dd {
+  margin: 0 0 0 110px;
+  padding: 0 0 0.5em 0;
+}

@@ -7,11 +7,12 @@
       "extensions": ["vscjava.vscode-java-pack"],
       "settings": {
         "terminal.integrated.defaultProfile.linux": "bash",
-        "java.configuration.updateBuildConfiguration": "interactive"
+        "java.configuration.updateBuildConfiguration": "interactive",
+        "remote.autoForwardPorts": false
       }
     }
   },
-  "postStartCommand": "bash config.sh",
+  "postCreateCommand": "bash config.sh",
   "workspaceFolder": "/orders-manager",
   "remoteUser": "jhordyess"
 }

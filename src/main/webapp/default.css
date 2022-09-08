@@ -1,0 +1,20 @@
+/*Framework de estilo base*/
+@import url("https://www.w3schools.com/w3css/4/w3.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css");
+/*Configuracion para plantilla*/
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Raleway", Helvetica, sans-serif;
+}
+.scc_noselec {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -ms-user-select: none;
+}

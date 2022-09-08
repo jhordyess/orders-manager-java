@@ -1,0 +1,795 @@
+<style>
+  div.scc_load-anim-B,
+  div.scc_load-anim-B:after {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+  }
+  div.scc_load-anim-B {
+    padding: 12px;
+    margin: 0;
+    -webkit-animation: slod 1.1s infinite linear;
+    animation: slod 1.1s infinite linear;
+  }
+  div.scc_load-anim,
+  div.scc_load-anim:after {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+  }
+  div.scc_load-anim {
+    padding: 8px;
+    margin: 0;
+    -webkit-animation: slod 1.1s infinite linear;
+    animation: slod 1.1s infinite linear;
+  }
+  div.scc_load-red {
+    border-top: 2.5px solid rgba(254, 64, 60, 0.2);
+    border-right: 2.5px solid rgba(254, 64, 60, 0.2);
+    border-bottom: 2.5px solid rgba(254, 64, 60, 0.2);
+    border-left: 2.5px solid rgb(254, 64, 60);
+  }
+  div.scc_load-blu {
+    border-top: 2.5px solid rgba(105, 144, 191, 0.2);
+    border-right: 2.5px solid rgba(105, 144, 191, 0.2);
+    border-bottom: 2.5px solid rgba(105, 144, 191, 0.2);
+    border-left: 2.5px solid rgb(105, 144, 191);
+  }
+  div.scc_load-ama {
+    border-top: 2.5px solid rgba(255, 192, 55, 0.2);
+    border-right: 2.5px solid rgba(255, 192, 55, 0.2);
+    border-bottom: 2.5px solid rgba(255, 192, 55, 0.2);
+    border-left: 2.5px solid rgb(255, 192, 55);
+  }
+  div.scc_load-gre {
+    border-top: 2.5px solid rgba(0, 128, 128, 0.2);
+    border-right: 2.5px solid rgba(0, 128, 128, 0.2);
+    border-bottom: 2.5px solid rgba(0, 128, 128, 0.2);
+    border-left: 2.5px solid rgb(0, 128, 128);
+  }
+  @-webkit-keyframes slod {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes slod {
+    0% {
+      -webkit-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+  /**/
+  span.subcaja1 {
+    background-color: #e7e7e7;
+  }
+
+  span.subcaja1:hover {
+    color: red;
+    text-decoration: line-through;
+    cursor: pointer;
+  }
+</style>
+<style>
+  span.step {
+    height: 15px;
+    width: 15px;
+    margin-top: 7.5px;
+    padding: 0;
+    background-color: #bbbbbb;
+    opacity: 0.37;
+  }
+  span.step.active {
+    opacity: 1;
+  }
+  span.step.finish {
+    background-color: #4caf50;
+  }
+</style>
+<style>
+  div ul.osmosis > li {
+    border-color: white;
+    padding: 0;
+    margin-bottom: 12px;
+  }
+  div div.nectar,
+  div ul.osmosis li div {
+    display: block;
+    overflow: hidden;
+    padding: 0px 4px;
+    border: 1px solid #ccc;
+  }
+  div div.nectar input,
+  div ul.osmosis li input {
+    border: none;
+    outline: none;
+    padding: 8px 8px 8px 4px;
+  }
+  div div.nectar ul,
+  div ul.osmosis li div ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+  }
+  div div.nectar ul li,
+  div ul.osmosis > li div ul li {
+    font-size: 11pt;
+    border-radius: 3px;
+    display: inline-block;
+    margin: 5px 5px 5px 0px;
+    padding: 2px 7.5px;
+    background: #dedede;
+  }
+  div ul.osmosis label {
+    font-style: italic;
+  }
+  div div.nectar ul li:hover,
+  div ul.osmosis li div ul li:hover,
+  div ul.osmosis label:hover {
+    color: gray;
+    text-decoration: line-through;
+    text-decoration-color: red;
+    text-decoration-style: wavy;
+    cursor: pointer;
+  }
+</style>
+<div id="mdl" class="w3-modal scc_noselec">
+  <div class="w3-modal-content w3-card-4" id="Vmdl" v-if="title>-1&title<5">
+    <header
+      class="w3-container"
+      v-bind:class="[title == 0 || title== 4? 'w3-teal' : title == 1 ? 'w3-khaki': title== 2 ? 'w3-red':title== 3 ? 'w3-blue':'']"
+    >
+      <button
+        onclick="closeModal();"
+        class="w3-button w3-display-topright"
+        v-bind:class="[title == 0 || title== 4 ? 'w3-hover-pale-green' : title == 1 ? 'w3-hover-pale-yellow': title== 2 ? 'w3-hover-pale-red':title== 3 ? 'w3-hover-pale-blue':'']"
+        style="font-size: 16pt"
+        id="mdl_xout"
+      >
+        &times;
+      </button>
+      <h2 v-if="title == 0">Externo</h2>
+      <h2 v-if="title == 1">Advertencia</h2>
+      <h2 v-if="title == 2">Precaucion</h2>
+      <h2 v-if="title == 3">Actualizar</h2>
+      <h2 v-if="title == 4">Crear</h2>
+    </header>
+    <div v-if="title==3||title==4" class="w3-container w3-row-padding">
+      <div
+        class="tab w3-col w3-row-padding w3-animate-opacity"
+        v-for="elem in elems"
+        v-bind:class="[elem!=elems[0]?'w3-hide':'w3-show']"
+      >
+        <h3 class="w3-center w3-col"><b>{{elem.name}}</b></h3>
+        <div
+          v-if="elem.subs.length!==0"
+          v-for="sub in elem.subs"
+          class="w3-col w3-margin-bottom"
+          v-bind:class="sub.css"
+        >
+          <label>{{sub.txt}}</label>
+          <div v-if="sub.type=='text'">
+            <input
+              class="w3-input w3-border"
+              v-bind:class="[sub.req=='1'?'jv-requ':'']"
+              v-bind:oninput="[sub.req=='1'?'normal(this)':'']"
+              type="text"
+              v-bind:list="[elem.lst.length>0&&sub.hls?sub.name:'']"
+              v-bind:name="sub.name"
+              v-bind:value="sub.val"
+              v-bind:onchange="[elem.lst.length>0&&sub.hls&&sub.chg?'findo(this,'+JSON.stringify(elem.lst)+')':'']"
+            />
+            <datalist v-if="elem.lst.length>0&&sub.hls" v-bind:id="sub.name">
+              <option
+                v-for="efm in elem.lst"
+                v-bind:value="efm[sub.name]"
+              ></option>
+            </datalist>
+          </div>
+          <!--<div v-if="sub.type=='date'">
+            <input class="w3-input w3-border" type="date" v-bind:class="[sub.req=='1'?'':'jv-requ']"  v-bind:name="sub.name" v-bind:value="sub.val"/>
+          </div>-->
+          <div v-if="sub.type=='bool'">
+            <input
+              class="w3-check"
+              type="checkbox"
+              v-bind:name="sub.name"
+              v-bind:class="[sub.val=='1'?'jv-checked':'']"
+            />
+          </div>
+          <!--<div v-if="sub.type=='sel'">
+            <select class="w3-select" v-bind:name="sub.name" v-bind:value="sub.val">
+              <option value="" disabled>Escoja una opcion</option>
+              <option v-for="elm in sub.lst" v-bind:value="elm">{{elm}}</option>
+            </select>
+          </div>-->
+          <div v-if="sub.type=='12n'">
+            <div class="nectar" v-bind:id="sub.name">
+              <ul>
+                <li
+                  onclick="mambu(this)"
+                  v-for="kiko in sub.lst"
+                  v-if="kiko.ini=='1'"
+                >
+                  {{kiko.val}}
+                </li>
+              </ul>
+              <input
+                type="text"
+                onkeypress="mana(event, this)"
+                v-bind:list="sub.name+'ch'"
+              />
+            </div>
+            <datalist v-bind:id="sub.name+'ch'">
+              <option
+                v-for="doe in sub.lst"
+                v-bind:value="doe.val"
+                v-bind:class="doe.ini=='1'?'jv-disabled':''"
+              ></option>
+            </datalist>
+          </div>
+        </div>
+        <div v-if="elem.subs.length==0&&elem.type=='n2m'" class="w3-col w3-row">
+          <div class="w3-col m4 w3-margin-right">
+            <label>Componentes</label>
+            <input
+              type="text"
+              placeholder="Ingrese o escoja"
+              class="w3-input w3-border"
+              v-bind:list="elem.def+'ch'"
+              v-bind:onkeypress="'mambo(event, this, '+JSON.stringify(elem.lst)+', '+JSON.stringify(elem.def)+')'"
+            />
+            <datalist v-bind:id="elem.def+'ch'">
+              <option
+                v-for="elm in elem.lst"
+                v-bind:value="elm.lbl"
+                v-bind:class="elm.ini=='1'?'jv-disabled':''"
+              ></option>
+            </datalist>
+          </div>
+          <div class="w3-rest">
+            <ul class="w3-ul osmosis" v-bind:id="elem.def">
+              <li v-for="(ips, index) in elem.lst" v-if="ips.ini=='1'">
+                <label onclick="mambu(this)">{{ips.lbl}}</label>
+                <div>
+                  <ul>
+                    <li
+                      onclick="mambu(this)"
+                      v-for="kiko in ips.vrs"
+                      v-if="kiko.ini=='1'"
+                    >
+                      {{kiko.val}}
+                    </li>
+                  </ul>
+                  <input
+                    type="text"
+                    onkeypress="mana(event, this)"
+                    v-bind:list="elem.def+'dn'+(index-1)"
+                  />
+                </div>
+                <datalist v-bind:id="elem.def+'dn'+(index-1)">
+                  <option
+                    v-for="doe in ips.vrs"
+                    v-bind:value="doe.val"
+                    v-bind:class="doe.ini=='1'?'jv-disabled':''"
+                  ></option>
+                </datalist>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div v-if="elems.length>1" class="w3-center">
+        <button
+          type="button"
+          id="prevBtn"
+          onclick="nextPrev(-1)"
+          class="w3-button w3-ripple w3-margin-right"
+          disabled=""
+        >
+          &#x276e;
+        </button>
+        <span
+          class="w3-badge step w3-border"
+          v-for="elem in elems"
+          v-bind:class="[elem==elems[0]?'active':'']"
+        ></span>
+        <button
+          type="button"
+          id="nextBtn"
+          onclick="nextPrev(1)"
+          class="w3-button w3-ripple w3-margin-left"
+        >
+          &#x276f;
+        </button>
+      </div>
+    </div>
+    <div
+      class="w3-container w3-large w3-serif w3-padding w3-section"
+      v-if="title>0"
+    >
+      <i class="fa fa-info w3-opacity w3-margin-right"></i>
+      {{msg}}
+    </div>
+    <div v-else-if="title==0">
+      <div class="scc_load-anim-B scc_load-gre w3-display-middle"></div>
+      <iframe
+        v-bind:src="msg"
+        style="width: 100%; height: 450px; border: 0; padding: 0; margin: 0px"
+        v-bind:onload="['dissapear(this)']"
+        id="myMFrame"
+      ></iframe>
+    </div>
+    <!--<button class="w3-button w3-ripple w3-teal" onclick="printDocument(this)">Mandar imprimir</button>-->
+    <footer class="w3-container w3-bar w3-border-top w3-padding">
+      <button
+        class="w3-right w3-button"
+        v-bind:class="[title == 0 ? 'w3-green' : title == 1 ? 'w3-khaki': title== 2 ? 'w3-red':title== 3 ? 'w3-blue':title== 4 ? 'w3-teal':'']"
+        id="mdl_acc"
+      >
+        Aceptar
+      </button>
+      <button
+        v-if="title>0"
+        class="w3-right w3-button"
+        onclick="closeModal();"
+        id="mdl_out"
+      >
+        Cancelar
+      </button>
+      <div
+        id="mdl_load"
+        class="w3-right w3-margin-right scc_load-anim"
+        v-bind:class="[title==1? 'scc_load-ama': title==2? 'scc_load-red':title==3? 'scc_load-blu':title==4||title==0? 'scc_load-gre':'']"
+      ></div>
+      <div class="w3-left">
+        <input
+          v-if="title==1"
+          class="w3-check"
+          style="width: 14pt"
+          type="checkbox"
+          name="mdl_chk"
+          id="mdl_chk"
+        />&nbsp;
+        <label v-if="title==1" for="mdl_chk">No volver a preguntar.</label>
+      </div>
+    </footer>
+  </div>
+</div>
+<script type="text/javascript">
+  // Get the modal
+  var modal = document.getElementById("mdl");
+  document.getElementById("mdl_load").hidden = true;
+  function showModal() {
+    modal.style.display = "block";
+  }
+  function hideModal() {
+    if (modal.style.display === "block") {
+      modal.style.display = "none";
+      let aux = document.getElementById("mdl_chk");
+      if (eval(aux)) {
+        aux.checked = false;
+        aux.disabled = false;
+      }
+      aux = document.getElementById("mdl_load");
+      if (eval(aux)) {
+        aux.hidden = true;
+      }
+      aux = document.getElementById("mdl_out");
+      if (eval(aux)) {
+        aux.disabled = false;
+      }
+      aux = document.getElementById("mdl_acc");
+      if (eval(aux)) {
+        aux.disabled = false;
+      }
+      document.getElementById("mdl_xout").disabled = false;
+    }
+  }
+  /**
+   * */
+  function mdlSend() {
+    if (modal.style.display === "block") {
+      document.getElementById("mdl_xout").disabled = true;
+      document.getElementById("mdl_acc").disabled = true;
+      document.getElementById("mdl_load").hidden = false;
+      let aux = document.getElementById("mdl_out");
+      if (eval(aux)) {
+        aux.disabled = true;
+      }
+      aux = document.getElementById("mdl_chk");
+      if (eval(aux)) {
+        aux.disabled = true;
+      }
+    }
+  }
+  function mdlRedo() {
+    if (modal.style.display === "block") {
+      document.getElementById("mdl_xout").disabled = false;
+      document.getElementById("mdl_acc").disabled = false;
+      document.getElementById("mdl_load").hidden = true;
+      let aux = document.getElementById("mdl_out");
+      if (eval(aux)) {
+        aux.disabled = false;
+      }
+      aux = document.getElementById("mdl_chk");
+      if (eval(aux)) {
+        aux.disabled = false;
+      }
+    }
+  }
+  function eval(te) {
+    return typeof te !== "undefined" && te !== null;
+  }
+</script>
+<script>
+  let currentTab = 0;
+  /**This function will display the specified tab of the form.
+   * @@param {Integer} n - */
+  function showTab(n) {
+    let x = document.getElementsByClassName("tab");
+    x[n].className = x[n].className.replace("w3-hide", "w3-show");
+    if (n === 0) {
+      document.getElementById(
+        "prevBtn"
+      ).disabled = true; /*style.display = "none"*/
+    } else {
+      document.getElementById(
+        "prevBtn"
+      ).disabled = false; /*style.display = "inline"*/
+    }
+    if (n === x.length - 1) {
+      document.getElementById(
+        "nextBtn"
+      ).disabled = true; /*style.display = "none"*/
+    } else {
+      document.getElementById(
+        "nextBtn"
+      ).disabled = false; /*style.display = "inline"*/
+    }
+    fixStepIndicator(n);
+  }
+
+  function normal(elem) {
+    elem.className = elem.className.replace(" w3-pale-yellow", "");
+  }
+  /**This function will figure out which tab to display.
+   * @@param {Integer} n - */
+  function nextPrev(n) {
+    let x = document.getElementsByClassName("tab");
+    if (n === 1 && !validateForm()) {
+      return false;
+    }
+    x[currentTab].className = x[currentTab].className.replace(
+      "w3-show",
+      "w3-hide"
+    );
+    currentTab = currentTab + n;
+    if (currentTab >= x.length) {
+      return false;
+    }
+    showTab(currentTab);
+  }
+  /**This function deals with validation of the form fields*/
+  function validateForm() {
+    let valid = true;
+    let y = document
+      .getElementsByClassName("tab")
+      [currentTab].getElementsByTagName("input");
+    for (let i = 0; i < y.length; i++) {
+      if (y[i].value === "" && y[i].classList.contains("jv-requ")) {
+        y[i].className += " w3-pale-yellow";
+        valid = false;
+      }
+    }
+    if (valid) {
+      document.getElementsByClassName("step")[currentTab].className +=
+        " finish";
+    }
+    return valid;
+  }
+  /**This function removes the "active" class of all steps.
+   * @@param {Integer} n - */
+  function fixStepIndicator(n) {
+    let x = document.getElementsByClassName("step");
+    for (let i = 0; i < x.length; i++) {
+      x[i].className = x[i].className.replace(" active", "");
+    }
+    x[n].className += " active";
+  }
+  function redoTab() {
+    currentTab = 0;
+  }
+  function valIns() {
+    //ultima validacion util
+    let valid = true;
+    try {
+      let y = document
+        .getElementsByClassName("tab")
+        [currentTab].getElementsByTagName("input");
+      for (let i = 0; i < y.length; i++) {
+        if (y[i].value === "" && y[i].classList.contains("jv-requ")) {
+          y[i].className += " w3-pale-yellow";
+          valid = false;
+        }
+      }
+      /*validacion de select!!!!!*/ //Amenos que sea vacio
+      if (document.getElementsByClassName("step").length > 1) {
+        valid =
+          valid &&
+          document.getElementsByClassName("step").length === currentTab + 1;
+      }
+    } catch (e) {
+      valid = false;
+    } finally {
+      return valid;
+    }
+  }
+  function getIns() {
+    let xd = [];
+    for (let item of document.getElementsByClassName("tab")) {
+      let y = item.getElementsByTagName("input");
+      for (let i = 0; i < y.length; i++) {
+        if (y[i].type === "text") {
+          xd.push({ name: y[i].name, val: y[i].value });
+        } else if (y[i].type === "checkbox") {
+        /*if (y[i].type === "radio" && y[i].checked === true) {
+         xd.push({"name": y[i].name, "val": y[i].value});
+         }*/
+          if (y[i].checked === true) {
+            xd.push({ name: y[i].name, val: "1" });
+          } else {
+            xd.push({ name: y[i].name, val: "0" });
+          }
+        }
+      }
+      /**/
+      y = item.getElementsByTagName("select");
+      for (let i = 0; i < y.length; i++) {
+        xd.push({ name: y[i].name, val: y[i].value });
+      }
+      y = item.getElementsByClassName("nectar");
+      for (let i = 0; i < y.length; i++) {
+        let z = "";
+        for (let uts of y[i].getElementsByTagName("li")) {
+          z += uts.textContent + "-";
+        }
+        z = z.substring(0, z.length - 1);
+        xd.push({ name: y[i].id, val: z });
+      }
+      y = item.getElementsByClassName("osmosis");
+      for (let i = 0; i < y.length; i++) {
+        let z = "";
+        let suy = y[i].childNodes;
+        for (let j = 0; j < suy.length; j++) {
+          if (suy[j].tagName === "LI") {
+            let com = "";
+            for (let uts of suy[j].getElementsByTagName("li")) {
+              com += uts.textContent + "-";
+            }
+            if (com.length !== 0) {
+              z +=
+                suy[j].getElementsByTagName("label")[0].textContent +
+                ":" +
+                com.substring(0, com.length - 1) +
+                ",";
+            }
+          }
+        }
+        z = z.substring(0, z.length - 1);
+        xd.push({ name: y[i].id, val: z });
+      }
+    }
+    return JSON.stringify(xd);
+  }
+  function findo(ele, lst) {
+    let nom = ele.getAttribute("name");
+    let curr = lst.find(function (elm) {
+      if (elm.hasOwnProperty(nom) && elm[nom] === ele.value) {
+        return elm;
+      }
+    });
+    if (curr !== undefined) {
+      let inputs =
+        ele.parentNode.parentNode.parentNode.getElementsByTagName("input");
+      for (let i = 0; i < inputs.length; i++) {
+        if (inputs[i] !== ele) {
+          let xd = inputs[i].getAttribute("name");
+          if (curr.hasOwnProperty(xd)) {
+            if (inputs[i].type === "text") {
+              inputs[i].value = curr[xd];
+            } else if (inputs[i].type === "checkbox") {
+              if (curr[xd] === "1") {
+                inputs[i].checked = true;
+              } else if (curr[xd] === "0") {
+                inputs[i].checked = false;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+</script>
+<script>
+  function mambo(eve, e, opts, ids) {
+    if (eve.keyCode === 13 && e.value !== "") {
+      //enter
+      let list = "";
+      let inlst = "";
+      let sw = false;
+      let bes = document.getElementById(ids).getElementsByTagName("label");
+      for (let i = 0; i < bes.length; i++) {
+        if (e.value === bes[i].textContent) {
+          sw = true;
+          break;
+        }
+      }
+      let con = undefined;
+      try {
+        bes = document.getElementById(ids).getElementsByTagName("datalist");
+        con = parseInt(bes[bes.length - 1].id.replace(ids + "dn", "")) + 1;
+      } catch (error) {}
+      if (!sw) {
+        try {
+          for (let elem of opts) {
+            if (elem.lbl === e.value) {
+              bes = ids + "dn" + (con !== undefined ? con : 0) + "";
+              list = " list='" + bes + "'";
+              inlst = "<datalist id='" + bes + "'>";
+              for (let sd of elem.vrs) {
+                inlst += "<option value='" + sd.val + "'></option>";
+              }
+              inlst += "</datalist>";
+              break;
+            }
+          }
+        } catch (e) {
+        } finally {
+          document.getElementById(ids).innerHTML +=
+            `<li><label onclick='mambu(this)'>` +
+            e.value +
+            "</label>" +
+            "<div><ul></ul>" +
+            "<input type='text' onkeypress='mana(event,this)'" +
+            list +
+            "></div>" +
+            inlst +
+            "</li>";
+          bes = e.nextElementSibling.getElementsByTagName("option");
+          for (let i = 0; i < bes.length; i++) {
+            if (e.value === bes[i].value) {
+              bes[i].disabled = true;
+              break;
+            }
+          }
+        }
+      }
+      e.value = "";
+    }
+  }
+  function mana(eve, e) {
+    if (
+      eve.keyCode === 13 &&
+      e.value !== "" &&
+      !prevent(e.value, ":") &&
+      !prevent(e.value, "-") &&
+      !prevent(e.value, ",") &&
+      !prevent(e.value, ";")
+    ) {
+      let sw = false;
+      let bes = e.previousElementSibling.getElementsByTagName("li");
+      for (let i = 0; i < bes.length; i++) {
+        if (e.value === bes[i].textContent) {
+          sw = true;
+          break;
+        }
+      }
+      if (!sw) {
+        e.previousElementSibling.innerHTML +=
+          "<li onclick='mambu(this)'>" + e.value + "</li>";
+        try {
+          bes = e.parentElement.parentElement
+            .getElementsByTagName("datalist")[0]
+            .getElementsByTagName("option");
+          for (let i = 0; i < bes.length; i++) {
+            if (e.value === bes[i].value) {
+              bes[i].disabled = true;
+              break;
+            }
+          }
+        } catch (error) {}
+      }
+      e.value = "";
+    } else if (eve.keyCode === 13 && prevent(e.value, ":")) {
+      e.value = e.value.replace(":", "");
+    } else if (eve.keyCode === 13 && prevent(e.value, "-")) {
+      e.value = e.value.replace("-", "");
+    } else if (eve.keyCode === 13 && prevent(e.value, ",")) {
+      e.value = e.value.replace(",", "");
+    } else if (eve.keyCode === 13 && prevent(e.value, ";")) {
+      e.value = e.value.replace(";", "");
+    }
+  }
+
+  function mambu(e) {
+    if (e.tagName === "LABEL") {
+      let bes =
+        e.parentElement.parentElement.parentElement.previousElementSibling.getElementsByTagName(
+          "option"
+        );
+      for (let i = 0; i < bes.length; i++) {
+        if (e.textContent === bes[i].value) {
+          bes[i].disabled = false;
+          break;
+        }
+      }
+      e = e.parentElement;
+    } else if (e.tagName === "LI") {
+      //estoy en li
+      try {
+        let bes = e.parentElement.parentElement.parentElement
+          .getElementsByTagName("datalist")[0]
+          .getElementsByTagName("option");
+        for (let i = 0; i < bes.length; i++) {
+          if (e.textContent === bes[i].value) {
+            bes[i].disabled = false;
+            break;
+          }
+        }
+      } catch (error) {}
+    }
+    try {
+      e.parentElement.removeChild(e);
+    } catch (error) {}
+  }
+
+  function chavelo() {
+    let jhs = modal.getElementsByClassName("jv-checked");
+    for (let i = 0; i < jhs.length; i++) {
+      jhs[i].checked = true;
+    }
+    for (let i = 0; i < jhs.length; i++) {
+      jhs[i].className = jhs[i].className.replace("jv-checked");
+    }
+  }
+
+  function chilis() {
+    let jhs = modal.getElementsByClassName("jv-disabled");
+    for (let i = 0; i < jhs.length; i++) {
+      jhs[i].disabled = true;
+    }
+    for (let i = 0; i < jhs.length; i++) {
+      jhs[i].className = jhs[i].className.replace("jv-disabled");
+    }
+  }
+  function prevent(who, what) {
+    return who.toString().includes(what);
+  }
+</script>
+<script>
+  function dissapear(e) {
+    e.previousElementSibling.style.display = "none";
+  }
+  /*function printDocument(e) {
+   let objFra = e.parentElement.getElementsByTagName('iframe')[0].contentWindow;
+   objFra.focus();
+   //Wait until PDF is ready to print    
+   if (typeof objFra.print === 'undefined') {
+   setTimeout(function () {
+   printDocument(documentId);
+   }, 1000);
+   } else {
+   objFra.print();
+   }
+   }*/
+</script>
