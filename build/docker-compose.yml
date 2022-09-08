@@ -15,9 +15,9 @@ services:
       dockerfile: ./Dockerfile
     restart: always
     environment:
-      - MARIADB_ROOT_PASSWORD
-      - MARIADB_DATABASE
-      - PMA_HOST=mariadb
-      - DB_USER=root
+      - DB_HOST=mariadb
+      - DB_USER
+      - DB_PASSWORD
+      - DB_NAME
     ports:
       - "8080:8080"

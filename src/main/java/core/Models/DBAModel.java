@@ -111,10 +111,10 @@ public class DBAModel {
   private void open_connection() {
     this.setMsg("");
     Map<String, String> env = System.getenv();
-    String db_host = env.get("PMA_HOST") + ":" + "3306";
+    String db_host = env.get("DB_HOST") + ":" + "3306";
     String db_user = env.get("DB_USER");
-    String db_pass = env.get("MARIADB_ROOT_PASSWORD");
-    String db_name = env.get("MARIADB_DATABASE");
+    String db_pass = env.get("DB_PASSWORD");
+    String db_name = env.get("DB_NAME");
     String url = "jdbc:mysql://" + db_host + "/" + db_name;
     try {
       Class.forName("com.mysql.jdbc.Driver");
@@ -171,7 +171,7 @@ public class DBAModel {
   public String updateD(String tname) {// DATE_FORMAT(UPDATE_TIME, '%e-%m-%Y %T')
     return this.LMDSimple(
         "SELECT UNIX_TIMESTAMP(UPDATE_TIME) AS 'jh3' FROM information_schema.tables WHERE TABLE_SCHEMA = '"
-            + System.getenv().get("MARIADB_DATABASE") + "' AND TABLE_NAME = '"
+            + System.getenv().get("DB_NAME") + "' AND TABLE_NAME = '"
             + tname + "' LIMIT 1;");
   }
 

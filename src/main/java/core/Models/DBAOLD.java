@@ -32,10 +32,10 @@ public class DBAOLD {
   private void open_connection() {
     this.setMsg("");
     Map<String, String> env = System.getenv();
-    String db_host = env.get("PMA_HOST") + ":" + "3306";
+    String db_host = env.get("DB_HOST") + ":" + "3306";
     String db_user = env.get("DB_USER");
-    String db_pass = env.get("MARIADB_ROOT_PASSWORD");
-    String db_name = env.get("MARIADB_DATABASE");
+    String db_pass = env.get("DB_PASSWORD");
+    String db_name = env.get("DB_NAME");
     String url = "jdbc:mysql://" + db_host + "/" + db_name;
     try {
       Class.forName("com.mysql.jdbc.Driver");
