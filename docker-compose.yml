@@ -19,12 +19,12 @@ services:
       - "80:80"
     environment:
       - PMA_HOST
-  java-tomcat:
+  maven-tomcat:
     depends_on:
       - mariadb
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./maven-tomcat.dockerfile
     volumes:
       - .:/orders-manager:cached
     environment:

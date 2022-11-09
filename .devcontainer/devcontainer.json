@@ -1,7 +1,7 @@
 {
   "name": "orders-manager",
   "dockerComposeFile": ["../docker-compose.yml"],
-  "service": "java-tomcat",
+  "service": "maven-tomcat",
   "customizations": {
     "vscode": {
       "extensions": ["vscjava.vscode-java-pack"],

@@ -12,7 +12,7 @@ services:
       - mariadb
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./tomcat.dockerfile
     restart: always
     environment:
       - DB_HOST=mariadb

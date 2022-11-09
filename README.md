@@ -2,6 +2,8 @@
 
 Order management solution, for retail stores. My second Full Stack app in 2020 😄.
 
+Also, you can check out my first Full Stack app: [orders-manager-php](https://github.com/jhordyess/orders-manager-php).
+
 ## Info
 
 Manage order status: incoming, approved, shipped, payment debts, canceled.
@@ -20,16 +22,16 @@ Generate PDF invoices and order itinery.
 
 ## Multi-container Docker app
 
-Run the `build.sh` file, it will create a new project named `orders-man-java` and run it; so you can visit [http://localhost:8080](http://localhost:8080).
+Run the `docker-app.sh` file, it will create a new project named `orders-man-java` and run it; so you can visit [http://localhost:8080](http://localhost:8080).
 
 ```sh
-bash build.sh
+bash docker-app.sh
 ```
 
 Run for PowerShell:
 
 ```ps1
-& ./build.ps1
+& ./docker-app.ps1
 ```
 
 ## Dev Info
