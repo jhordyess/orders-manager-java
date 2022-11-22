@@ -47,17 +47,16 @@ public class PDF extends HttpServlet {
   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
     // 1. Prepare the .tex file
-    String type = this.esquema_tex("vacio"), logo = "", mapImage = "";
+    String type = this.esquema_tex("vacio"), mapImage = "";
     switch (request.getParameter("s")) {
       case "1":
         OwnDB database = new OwnDB();
         String[] cuatro = database.getGeolocation(request.getParameter("t"));
-        logo = this.copyTemp(cuatro[0]);
-        if (!cuatro[1].equals("") && !cuatro[2].equals("")) {
+        if (!cuatro[0].equals("") && !cuatro[1].equals("")) {
           mapImage = this.makeNode("http://localhost:8080/" + request.getContextPath() + "/" + "Delivery?" + "lat="
-              + cuatro[1] + "&lon=" + cuatro[2] + "");
+              + cuatro[0] + "&lon=" + cuatro[1] + "");
         }
-        String comp = (new Recibo(request.getParameter("t"), logo, mapImage, this.myTemp_Path(true))).getOut();
+        String comp = (new Recibo(request.getParameter("t"), mapImage, this.myTemp_Path(true))).getOut();
         if (!comp.equals("")) {
           type = comp;
         }
@@ -78,7 +77,7 @@ public class PDF extends HttpServlet {
       this.err(response);
     }
     // 4. Eliminar residuos
-    this.dropExtras(logo, mapImage);
+    this.dropExtras(mapImage);
   }
 
   private final String filename = this.random(5);
@@ -130,7 +129,7 @@ public class PDF extends HttpServlet {
     }
   }
 
-  private void dropExtras(String logo, String mapa) {
+  private void dropExtras(String mapa) {
     try {
       String alfa = "";
       alfa += cleanFile("pdf", true) ? "pdf " : "";
@@ -139,7 +138,6 @@ public class PDF extends HttpServlet {
       alfa += cleanFile("aux", true) ? "aux " : "";
       alfa += cleanFile("out", true) ? "out " : "";
       alfa += cleanFile("synctex.gz", true) ? "synctex.gz " : "";
-      alfa += (!logo.equals("") && cleanFile(logo, false)) ? (logo + " ") : "";
       alfa += (!mapa.equals("") && !mapa.equals("0") && !mapa.equals("1") && cleanFile(mapa, false)) ? (mapa + " ")
           : "";
       if (!"".equals(alfa)) {
@@ -186,27 +184,6 @@ public class PDF extends HttpServlet {
       out.print("<h1><center>Dificultades tecnicas, intente nuevamente</center></h1>");
       out.close();
     }
-  }
-
-  /**
-   * Se añade implicitamente el punto despues del nombre. Siempre debe ser un
-   * pdf.
-   *
-   * @param source Ex: "/img/avatar1"
-   */
-  private String copyTemp(String source) throws IOException {
-    String ran = this.random(5) + source.substring(source.indexOf('.'));
-    try (InputStream is = this.getServletContext().getResourceAsStream(source);
-        OutputStream os = new FileOutputStream(this.getFilePath(ran, false))) {
-      byte[] buffer = new byte[1024];
-      int length;
-      while ((length = is.read(buffer)) > 0) {
-        os.write(buffer, 0, length);
-      }
-      is.close();
-      os.close();
-    } // catch (IOException e) {}
-    return ran;
   }
 
   /**

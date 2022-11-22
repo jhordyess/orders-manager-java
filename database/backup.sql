@@ -630,7 +630,7 @@ select CONCAT(ST_X(gi.geo),',',ST_Y(gi.geo)) as jh3 from pedido as gi WHERE gi.r
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_geon` (IN `isn` NVARCHAR(7))   BEGIN
-select '/img/logo.png' as one,IF(ST_X(gi.geo) IS NULL,'',ST_X(gi.geo)) as tre,IF(ST_Y(gi.geo)IS NULL,'',ST_Y(gi.geo)) AS cua from pedido as gi WHERE gi.recibo_nro=isn LIMIT 1;
+select IF(ST_X(gi.geo) IS NULL,'',ST_X(gi.geo)) as tre,IF(ST_Y(gi.geo)IS NULL,'',ST_Y(gi.geo)) AS cua from pedido as gi WHERE gi.recibo_nro=isn LIMIT 1;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_ped_1` (IN `isn` NVARCHAR(7))   BEGIN

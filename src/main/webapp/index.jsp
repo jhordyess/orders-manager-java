@@ -6,7 +6,11 @@ contentType="text/html" pageEncoding="UTF-8"%>
     <title>Orders manager</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="./img/logo.png" />
+    <link
+      rel="shortcut icon"
+      href="https://res.cloudinary.com/jhordyess/image/upload/v1667836186/global/favicon.svg.svg"
+      type="image/x-icon"
+    />
     <!--Estilo de default-->
     <link rel="stylesheet" href="./default.css" />
     <!--Siempre tener en cuenta la dependecia-->

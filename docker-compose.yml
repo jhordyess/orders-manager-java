@@ -9,7 +9,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./build/backup.sql:/docker-entrypoint-initdb.d/backup.sql
+      - ./database/backup.sql:/docker-entrypoint-initdb.d/backup.sql
   pma:
     depends_on:
       - mariadb

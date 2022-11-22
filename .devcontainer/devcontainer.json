@@ -1,5 +1,5 @@
 {
-  "name": "orders-manager",
+  "name": "orders-manager-java",
   "dockerComposeFile": ["../docker-compose.yml"],
   "service": "maven-tomcat",
   "customizations": {

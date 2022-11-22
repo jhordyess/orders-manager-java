@@ -22,17 +22,7 @@ Generate PDF invoices and order itinery.
 
 ## Multi-container Docker app
 
-Run the `docker-app.sh` file, it will create a new project named `orders-man-java` and run it; so you can visit [http://localhost:8080](http://localhost:8080).
-
-```sh
-bash docker-app.sh
-```
-
-Run for PowerShell:
-
-```ps1
-& ./docker-app.ps1
-```
+Please review the [docker](https://github.com/jhordyess/orders-manager-java/tree/docker) branch.
 
 ## Dev Info
 

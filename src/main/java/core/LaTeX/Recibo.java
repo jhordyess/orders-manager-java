@@ -11,7 +11,7 @@ public class Recibo {
 
   private String out = "";
 
-  public Recibo(String serie, String logo, String map, String or) {
+  public Recibo(String serie, String map, String or) {
     try {
       OwnDB sd = new OwnDB();
       String z = sd.checkExist(serie);
@@ -24,7 +24,6 @@ public class Recibo {
             + "\\vspace{-0.5cm}\\textcolor{col3}{\\rule{\\linewidth}{1px}}\\\\"
             + "\\begin{minipage}{.28\\linewidth}"
             + "\\noindent\\begin{center}"
-            + "\\includegraphics[width=1.5cm]{" + or + logo + "}\\\\"
             + "\\scriptsize "
             + "Bolivia"
             + "\\end{center}"
