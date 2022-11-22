@@ -5,33 +5,19 @@ services:
     environment:
       - MARIADB_ROOT_PASSWORD
       - MARIADB_DATABASE
-      # - MARIADB_INITDB_SKIP_TZINFO=1
-    ports:
-      - "3306:3306"
     volumes:
-      - ./build/backup.sql:/docker-entrypoint-initdb.d/backup.sql
-  pma:
-    depends_on:
-      - mariadb
-    image: phpmyadmin
-    restart: always
-    ports:
-      - "80:80"
-    environment:
-      - PMA_HOST
-  maven-tomcat:
+      - ./database/backup.sql:/docker-entrypoint-initdb.d/backup.sql
+  tomcat:
     depends_on:
       - mariadb
     build:
       context: .
-      dockerfile: ./maven-tomcat.dockerfile
-    volumes:
-      - .:/orders-manager:cached
+      dockerfile: ./tomcat.dockerfile
+    restart: always
     environment:
-      - DB_HOST
+      - DB_HOST=mariadb
       - DB_USER
       - DB_PASSWORD
       - DB_NAME
-    command: /bin/sh -c "while sleep 1000; do :; done"
     ports:
       - "8080:8080"
