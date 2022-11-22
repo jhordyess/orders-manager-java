@@ -1,1 +1,1 @@
-docker compose -p orders-man-java -f ./build/docker/docker-compose.yml up -d
+docker compose -p orders-man-java -f ./docker-compose.yml up -d

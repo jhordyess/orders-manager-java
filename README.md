@@ -12,14 +12,6 @@ Review customer and product details.
 
 Generate PDF invoices and order itinery.
 
-## Screenshots
-
-![Dashboard](https://res.cloudinary.com/jhordyess/image/upload/v1662602748/orders-manager/dashboard_java.png)
-![New order](https://res.cloudinary.com/jhordyess/image/upload/v1662602748/orders-manager/new_order_java.png)
-![Order list](https://res.cloudinary.com/jhordyess/image/upload/v1662602747/orders-manager/order_list_java.png)
-![Invoice with LaTeX](https://res.cloudinary.com/jhordyess/image/upload/v1662602747/orders-manager/order_invoice_java.png)
-![DDBB with phpMyAdmin Designer](https://res.cloudinary.com/jhordyess/image/upload/v1662647758/orders-manager/ddbb_java.png)
-
 ## Multi-container Docker app
 
 Run the `docker-app.sh` file, it will create a new project named `orders-man-java` and run it; so you can visit [http://localhost:8080](http://localhost:8080).
