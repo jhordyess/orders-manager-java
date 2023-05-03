@@ -48,7 +48,7 @@ RUN wget -qO- "https://yihui.org/tinytex/install-bin-unix.sh" | sh -s - --admin 
   && ${TEX_PATH}/bin/*/tlmgr path add
 ENV PATH="${PATH}:${TEX_PATH}/bin/x86_64-linux"
 
-# Install Maven
+# Install Maven 3.9.1, for new versions see: https://maven.apache.org/download.cgi
 RUN wget https://dlcdn.apache.org/maven/maven-3/3.9.1/binaries/apache-maven-3.9.1-bin.tar.gz \
   && tar -xvf apache-maven-3.9.1-bin.tar.gz \
   && rm -r apache-maven-3.9.1-bin.tar.gz \
