@@ -4,7 +4,7 @@ Order management solution, for retail stores. My second Full Stack app in 2020 �
 
 Also, you can check out my first Full Stack app: [orders-manager-php](https://github.com/jhordyess/orders-manager-php).
 
-## Info
+## Description
 
 Manage order status: incoming, approved, shipped, payment debts, canceled.
 
@@ -12,7 +12,24 @@ Review customer and product details.
 
 Generate PDF invoices and order itineraries.
 
-## Screenshots
+### Technologies Used
+
+- JS Libraries: [jQuery](https://jquery.com/), [ChartJS](https://www.chartjs.org/), [Datatables](https://datatables.net/), [Vue.js](https://vuejs.org/), [Fraction.js](https://github.com/infusion/Fraction.js/), [Leaflet](https://leafletjs.com/), [Date Range Picker](https://www.daterangepicker.com/)
+- Programming Language: [Java](https://www.java.com/)
+- CSS Libraries: [W3.CSS](https://www.w3schools.com/w3css/default.asp)
+- Icon library: [Font Awesome](https://fontawesome.com/)
+- Database: [MariaDB](https://mariadb.org/)
+- Wiki world map: [OpenStreetMap](https://www.openstreetmap.org/)
+- Typesetting system: [Latex](https://www.latex-project.org/)
+- Project management tool: [Maven](https://maven.apache.org/)
+- Server: [Apache Tomcat](https://tomcat.apache.org/)
+- Dev Environment: [VSCode](https://code.visualstudio.com/) with [dev containers](https://code.visualstudio.com/docs/remote/containers) in [Zorin OS](https://zorinos.com/)
+
+### Multi-container Docker app
+
+Please review the [docker](https://github.com/jhordyess/orders-manager-java/tree/docker) branch.
+
+### Screenshots
 
 ![Dashboard](https://res.cloudinary.com/jhordyess/image/upload/v1662602748/orders-manager/java/dashboard.png)
 ![New order](https://res.cloudinary.com/jhordyess/image/upload/v1662602748/orders-manager/java/new_order.png)
@@ -20,39 +37,20 @@ Generate PDF invoices and order itineraries.
 ![Invoice with LaTeX](https://res.cloudinary.com/jhordyess/image/upload/v1662602747/orders-manager/java/order_invoice.png)
 ![DDBB with phpMyAdmin Designer](https://res.cloudinary.com/jhordyess/image/upload/v1662647758/orders-manager/java/ddbb.png)
 
-## Multi-container Docker app
-
-Please review the [docker](https://github.com/jhordyess/orders-manager-java/tree/docker) branch.
-
-## Dev Info
-
-- Icon library: [Fonticons - Font Awesome](https://fontawesome.com/)
-- CSS framework: [W3.CSS](https://www.w3schools.com/w3css/default.asp)
-- JavaScript library: [OpenJS Foundation and jQuery contributors - jQuery](https://jquery.com/)
-- Plugin for jQuery: [SpryMedia - Datatables](https://datatables.net/)
-- JavaScript charting: [ChartJS](https://www.chartjs.org/)
-- JavaScript framework [Evan You - Vue.js](https://vuejs.org/)
-- JavaScript library: [Robert Eisele - Fraction.js](https://github.com/infusion/Fraction.js/)
-- JavaScript library: [OpenStreetMap Foundation - Leaflet](https://leafletjs.com/)
-- JavaScript component: [Dan Grossman - Date Range Picker](https://www.daterangepicker.com/)
-- Wiki world map: [OpenStreetMap Foundation - OpenStreetMap](https://www.openstreetmap.org/)
-- Typesetting system: [Latex](https://www.latex-project.org/)
-- Framework for Web Testing and Automation: [Playwright for Java](https://playwright.dev/java/)
-- Database: [MariaDB Foundation - MariaDB](https://mariadb.org/)
-- Programming language: [Oracle - Java](https://www.java.com/)
-- Project management tool: [The Apache Software Foundation - Maven](https://maven.apache.org/)
-- Java Servlet container: [The Apache Software Foundation - Apache Tomcat](https://tomcat.apache.org/)
-
-## TODO
+## To-Do
 
 - The project was originally created in Spanish, and still needs to be translated.
 - Unnecessary event field for order registry.
 - Improve Dashboard
 - Fix login, users and roles.
 
+## Contribution
+
+If you would like to contribute to the project, open an issue or make a pull request on the repository.
+
 ## License
 
-© 2022 [Jhordyess](https://github.com/jhordyess). Under the [MIT](https://choosealicense.com/licenses/mit/) license.
+© 2022 [Jhordyess](https://github.com/jhordyess). Under the [MIT](https://choosealicense.com/licenses/mit/) license. See the [LICENSE](./LICENSE) file for more details.
 
 ---
 
