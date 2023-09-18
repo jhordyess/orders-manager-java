@@ -1,0 +1,44 @@
+name: orders-manager-java-prod
+services:
+  mariadb:
+    image: mariadb:10.4
+    restart: always
+    environment:
+      - MARIADB_ROOT_PASSWORD
+      - MARIADB_USER
+      - MARIADB_PASSWORD
+      - MARIADB_DATABASE
+    volumes:
+      - type: bind
+        source: ./mariadb/backup.sql
+        target: /docker-entrypoint-initdb.d/backup.sql
+      - type: volume
+        source: mariadb-data
+        target: /var/lib/mysql
+    networks:
+      - localnet
+
+  java-app:
+    depends_on:
+      - mariadb
+    build:
+      context: ./java-app
+      dockerfile: prod.Dockerfile
+    restart: always
+    environment:
+      - DB_HOST=mariadb
+      - DB_USER
+      - DB_PASSWORD
+      - DB_NAME
+    ports:
+      - "8080:8080"
+    networks:
+      - localnet
+
+volumes:
+  mariadb-data:
+
+
+networks:
+  localnet:
+    driver: bridge

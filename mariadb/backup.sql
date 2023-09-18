@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `orders-db`
+-- Database: `orders-man`
 --
 
 DELIMITER $$
@@ -1018,7 +1018,7 @@ else
 			select LAST_INSERT_ID() into id_p;
 		end if;
     -- TODO table_schema remove
-		SELECT AUTO_INCREMENT INTO autoinc FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'orders-db' AND TABLE_NAME = 'pedido';
+		SELECT AUTO_INCREMENT INTO autoinc FROM information_schema.TABLES WHERE TABLE_SCHEMA = 'orders-man' AND TABLE_NAME = 'pedido';
 		set @jj = autoinc+4000;
 		INSERT INTO pedido(descuento,acuenta,extra,fecha_pa_enviar,comentarioA,comentarioB,id_medio_pag,id_medio_con,id_lugar_des,recibo_nro) VALUES (desco,acuen,xtra,fecha_envio,comenA,comenB,id_p,id_c,id_d,@jj);
 		select LAST_INSERT_ID() into idp;

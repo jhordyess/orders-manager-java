@@ -1,0 +1,18 @@
+{
+  "name": "orders-manager-java",
+  "dockerComposeFile": "../docker-compose.dev.yml",
+  "service": "java-app",
+  "shutdownAction": "none",
+  "customizations": {
+    "vscode": {
+      "extensions": ["vscjava.vscode-java-pack", "redhat.vscode-xml"],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "java.configuration.updateBuildConfiguration": "interactive",
+        "redhat.telemetry.enabled": false
+      }
+    }
+  },
+  "postCreateCommand": "mvn clean install -DskipTests",
+  "workspaceFolder": "/orders-manager-java/java-app"
+}

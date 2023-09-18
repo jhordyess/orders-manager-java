@@ -65,6 +65,7 @@
             <label>Nombre <strong class="w3-text-red">*</strong></label>
             <input class="w3-input w3-border jv-requ" oninput="normal(this)" maxlength="100" name="t-n_nombre" type="text" value="${clivals[0]}" onchange='findo(this, ${Acliente})' title="Campo obligatorio" list="lst-clientes"/>
           <datalist id="lst-clientes">
+            <!-- TODO  Fix if clientes is 0 -->
             <c:forEach var = "i" begin = "0" end = "${fn:length(clientes)-1}">
               <option value="<c:out value = "${clientes[i]}"/>"></option>
             </c:forEach>

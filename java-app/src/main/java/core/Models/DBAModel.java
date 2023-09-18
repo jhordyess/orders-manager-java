@@ -117,7 +117,8 @@ public class DBAModel {
     String db_name = env.get("DB_NAME");
     String url = "jdbc:mysql://" + db_host + "/" + db_name;
     try {
-      Class.forName("com.mysql.jdbc.Driver");
+      // FIXME Is still necessary to load the driver manually?
+      Class.forName("com.mysql.cj.jdbc.Driver");
       this.conn = DriverManager.getConnection(url, db_user, db_pass);
     } catch (ClassNotFoundException e) {
       MsgModel(e.getMessage());

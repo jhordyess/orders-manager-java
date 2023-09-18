@@ -1,0 +1,59 @@
+# name: orders-manager-java-dev
+services:
+  mariadb:
+    image: mariadb:10.4
+    container_name: orders-man-java-dev_mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD
+      - MARIADB_USER
+      - MARIADB_PASSWORD
+      - MARIADB_DATABASE
+    volumes:
+      - type: bind
+        source: ./mariadb/backup.sql
+        target: /docker-entrypoint-initdb.d/backup.sql
+      - type: volume
+        source: mariadb-data
+        target: /var/lib/mysql
+    networks:
+      - localnet
+
+  phpmyadmin:
+    depends_on:
+      - mariadb
+    image: phpmyadmin
+    container_name: orders-man-java-dev_phpmyadmin
+    ports:
+      - "80-90:80"
+    environment:
+      - PMA_HOST
+    networks:
+      - localnet
+
+  java-app:
+    depends_on:
+      - mariadb
+    container_name: orders-man-java-dev_java-app
+    build:
+      context: ./java-app
+      dockerfile: dev.Dockerfile
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    volumes:
+      - type: bind
+        source: ./
+        target: /orders-manager-java
+    environment:
+      - DB_HOST
+      - DB_USER
+      - DB_PASSWORD
+      - DB_NAME
+    networks:
+      - localnet
+
+volumes:
+  mariadb-data:
+
+
+networks:
+  localnet:
+    driver: bridge

@@ -1,0 +1,5 @@
+<Context
+  docBase="/orders-manager-java/java-app/target/orders-manager"
+  path=""
+  reloadable="true"
+/>
